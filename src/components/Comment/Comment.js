@@ -1,11 +1,11 @@
 import React from 'react';
 import './Comments.css'
 
-function Comment() {
+function Comment({name , email}) {
     return (
         <div className='comment'>
-            <p>Name</p>
-            <p>Email</p>
+            <p>Name:{name}</p>
+            <p>Email{email}</p>
         </div>
     )
 }
