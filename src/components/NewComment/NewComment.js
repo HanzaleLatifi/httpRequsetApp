@@ -1,24 +1,31 @@
-import React,{ useState } from 'react';
+import React, { useState } from 'react';
 import './NewComment.css';
 import axios from 'axios';
 
-function NewComment() {
+function NewComment(props) {
     const [comment, setComment] = useState({ name: '', email: '', body: '' })
 
     const changeHandler = (e) => {
-        setComment({...comment, [e.target.name]:e.target.value})
+        setComment({ ...comment, [e.target.name]: e.target.value })
     }
-    const submitHandler=(e)=>{
+    const submitHandler = (e) => {    //inja chon dataBase vaghaei ndarim , dorostPostnmishe
         e.preventDefault();
-        axios.post('https://jsonplaceholder.typicode.com/comments',{
-            ...comment,postId:10
+        axios.post('https://jsonplaceholder.typicode.com/comments', {
+            ...comment, postId: 10
         })
-        .then((res)=>{
-            console.log(res.data)
+            .then((res) => {
+                return (
+                    axios.get('https://jsonplaceholder.typicode.com/comments')
 
-        }).catch(()=>{
+                )
 
-        })
+
+            }).then((res) => {
+                props.setComments(res.data)
+            })
+            .catch(() => {
+
+            })
     }
 
     return (
