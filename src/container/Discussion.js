@@ -6,7 +6,8 @@ import Comment from '../components/Comment/Comment'
 import axios from 'axios'
 
 function Discussion() {
-    const [comments, setComments] = useState([]);
+    const [comments, setComments] = useState(null);
+    const [selectedComment,setSelectedComment]=useState(null);
     useEffect(()=>{
          axios.get('https://jsonplaceholder.typicode.com/comments').then((response)=>{
              
@@ -18,17 +19,22 @@ function Discussion() {
         })
          
     },[])
+
+    const commentSelectHandler=(id)=>{
+        setSelectedComment(id);
+    }
     
     return (
         <main className='main-container'>
             <section >
-                {comments.map(c=>{
-                    return <Comment key={c.id} name={c.name} email={c.email} />
-                })}
+                {comments? comments.map(c=>{
+                    return <Comment key={c.id} name={c.name} email={c.email} clickHandler={()=>commentSelectHandler(c.id)} />
+                }) :<p>LOADING</p>}
                 
             </section>
+            
             <section>
-                <FullComment/>
+                <FullComment selectedComment={selectedComment}/>
             </section>
             <section>
                 <NewComment/>
