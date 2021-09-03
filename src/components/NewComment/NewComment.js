@@ -10,12 +10,12 @@ function NewComment(props) {
     }
     const submitHandler = (e) => {    //inja chon dataBase vaghaei ndarim , dorostPostnmishe
         e.preventDefault();
-        axios.post('https://jsonplaceholder.typicode.com/comments', {
+        axios.post('http://localhost:3001/comments', {
             ...comment, postId: 10
         })
             .then((res) => {
                 return (
-                    axios.get('https://jsonplaceholder.typicode.com/comments')
+                    axios.get('http://localhost:3001/comments')
 
                 )
 

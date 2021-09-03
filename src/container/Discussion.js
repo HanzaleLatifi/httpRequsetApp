@@ -12,10 +12,10 @@ function Discussion() {
     const [error, setError] = useState(false);
 
     useEffect(() => {
-        axios.get('https://jsonplaceholder.typicode.com/comments')
+        axios.get('http://localhost:3001/comments')
             .then((response) => {
 
-                setComments(response.data.slice(0, 4));
+                setComments(response.data);
 
             }).catch((error) => {
                 setError(true)

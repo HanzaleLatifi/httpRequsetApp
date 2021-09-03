@@ -10,7 +10,7 @@ function FullComment({ selectedComment }) {
         if (selectedComment) {
             const getComment = async () => {
                 try {
-                    const { data } = await axios.get(`https://jsonplaceholder.typicode.com/comments/${selectedComment}`);
+                    const { data } = await axios.get(`http://localhost:3001/comments/${selectedComment}`);
                     setComment(data)
                 } catch {
 
