@@ -3,7 +3,8 @@ import './Discussion.css'
 import FullComment from '../components/FullComment/FullComment'
 import NewComment from '../components/NewComment/NewComment'
 import Comment from '../components/Comment/Comment'
-import axios from 'axios'
+import axios from 'axios' ; 
+import { toast } from 'react-toastify';
 
 function Discussion() {
     const [comments, setComments] = useState(null);
@@ -29,7 +30,7 @@ function Discussion() {
     const renderFunc = () => {
 
         let renderValue = <p>LOADING</p>;
-        if (error) renderValue = "error messsage";
+        if (error) renderValue = toast.error('error message');
         if (comments && !error) { 
            renderValue= comments.map(c => {
                 return <Comment key={c.id} name={c.name} email={c.email} clickHandler={() => commentSelectHandler(c.id)} />
