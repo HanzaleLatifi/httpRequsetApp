@@ -1,4 +1,4 @@
-import React,{useEffect , useState} from 'react'
+import React, { useEffect, useState } from 'react'
 import './Discussion.css'
 import FullComment from '../components/FullComment/FullComment'
 import NewComment from '../components/NewComment/NewComment'
@@ -7,39 +7,54 @@ import axios from 'axios'
 
 function Discussion() {
     const [comments, setComments] = useState(null);
-    const [selectedComment,setSelectedComment]=useState(null);
-    useEffect(()=>{
-         axios.get('https://jsonplaceholder.typicode.com/comments').then((response)=>{
-             
-             setComments(response.data.slice(0,4));
-            
+    const [selectedComment, setSelectedComment] = useState(null);
+    const [error, setError] = useState(false);
 
-        }).catch((error)=>{
-            console.log(error)
-        })
-         
-    },[])
+    useEffect(() => {
+        axios.get('https://jsonplaceholder.typicode.com/comments')
+            .then((response) => {
 
-    const commentSelectHandler=(id)=>{
+                setComments(response.data.slice(0, 4));
+
+            }).catch((error) => {
+                setError(true)
+            })
+
+    }, [])
+
+    const commentSelectHandler = (id) => {
         setSelectedComment(id);
     }
-    
+
+    const renderFunc = () => {
+
+        let renderValue = <p>LOADING</p>;
+        if (error) renderValue = "error messsage";
+        if (comments && !error) { 
+           renderValue= comments.map(c => {
+                return <Comment key={c.id} name={c.name} email={c.email} clickHandler={() => commentSelectHandler(c.id)} />
+            })
+            
+        }
+        return renderValue;
+    }
+
+
     return (
         <main className='main-container'>
             <section >
-                {comments? comments.map(c=>{
-                    return <Comment key={c.id} name={c.name} email={c.email} clickHandler={()=>commentSelectHandler(c.id)} />
-                }) :<p>LOADING</p>}
-                
+
+                {renderFunc()}
+
             </section>
-            
+
             <section>
-                <FullComment selectedComment={selectedComment}/>
+                <FullComment selectedComment={selectedComment} />
             </section>
             <section>
-                <NewComment setComments={setComments}/>
+                <NewComment setComments={setComments} />
             </section>
-            
+
         </main>
     )
 }
