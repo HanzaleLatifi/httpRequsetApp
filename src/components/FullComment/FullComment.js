@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import './FullComment.css';
 import axios from 'axios';
 
-function FullComment({ selectedComment }) {
+function FullComment({ selectedComment , setComments }) {
 
     const [comment, setComment] = useState(null);
 
@@ -20,6 +20,17 @@ function FullComment({ selectedComment }) {
             getComment();
         }
     }, [selectedComment]) ;
+    
+    const deleteHandler=async()=>{
+        try {
+            await axios.delete(`http://localhost:3001/comments/${selectedComment}`) ;
+            const{data}=await axios.get('http://localhost:3001/comments');
+            setComments(data);
+
+        } catch (error) {
+            
+        }
+    }
 
     if(!comment) return <p>plz select a comment ...!</p>
 
@@ -28,6 +39,7 @@ function FullComment({ selectedComment }) {
             <p>name : {comment.name}</p>
             <p>email :{comment.email}</p>
             <p>body :{comment.body}</p>
+            <button onClick={deleteHandler} >delete</button>
         </div>
     )
 }

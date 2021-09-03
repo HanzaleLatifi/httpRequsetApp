@@ -19,7 +19,6 @@ function NewComment(props) {
 
                 )
 
-
             }).then((res) => {
                 props.setComments(res.data)
             })

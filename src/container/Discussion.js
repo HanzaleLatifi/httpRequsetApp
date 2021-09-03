@@ -50,7 +50,7 @@ function Discussion() {
             </section>
 
             <section>
-                <FullComment selectedComment={selectedComment} />
+                <FullComment selectedComment={selectedComment} setComments={setComments}/>
             </section>
             <section>
                 <NewComment setComments={setComments} />
