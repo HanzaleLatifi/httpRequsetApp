@@ -26,6 +26,7 @@ function FullComment({ selectedComment , setComments }) {
             await axios.delete(`http://localhost:3001/comments/${selectedComment}`) ;
             const{data}=await axios.get('http://localhost:3001/comments');
             setComments(data);
+            setComment(null) ; //for delete fullcommnt and show plz select a comment 
 
         } catch (error) {
             
