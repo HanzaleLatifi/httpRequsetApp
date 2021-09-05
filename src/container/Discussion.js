@@ -5,6 +5,8 @@ import NewComment from '../components/NewComment/NewComment'
 import Comment from '../components/Comment/Comment'
 import axios from 'axios' ; 
 import { toast } from 'react-toastify';
+import http from '../services/http'
+
 
 function Discussion() {
     const [comments, setComments] = useState(null);
@@ -12,7 +14,7 @@ function Discussion() {
     const [error, setError] = useState(false);
 
     useEffect(() => {
-        axios.get('http://localhost:3001/comments')
+        http.get('/comments')
             .then((response) => {
 
                 setComments(response.data);

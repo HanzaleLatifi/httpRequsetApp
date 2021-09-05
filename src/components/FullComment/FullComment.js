@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import './FullComment.css';
-import axios from 'axios';
+import http from '../../services/http';
 
 function FullComment({ selectedComment , setComments }) {
 
@@ -10,7 +10,7 @@ function FullComment({ selectedComment , setComments }) {
         if (selectedComment) {
             const getComment = async () => {
                 try {
-                    const { data } = await axios.get(`http://localhost:3001/comments/${selectedComment}`);
+                    const { data } = await http.get(`/comments/${selectedComment}`);
                     setComment(data)
                 } catch {
 
@@ -23,8 +23,8 @@ function FullComment({ selectedComment , setComments }) {
     
     const deleteHandler=async()=>{
         try {
-            await axios.delete(`http://localhost:3001/comments/${selectedComment}`) ;
-            const{data}=await axios.get('http://localhost:3001/comments');
+            await http.delete(`/comments/${selectedComment}`) ;
+            const{data}=await http.get('/comments');
             setComments(data);
             setComment(null) ; //for delete fullcommnt and show plz select a comment 
 

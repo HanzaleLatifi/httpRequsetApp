@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import './NewComment.css';
-import axios from 'axios';
+import http from '../../services/http';
 
 function NewComment(props) {
     const [comment, setComment] = useState({ name: '', email: '', body: '' })
@@ -8,17 +8,15 @@ function NewComment(props) {
     const changeHandler = (e) => {
         setComment({ ...comment, [e.target.name]: e.target.value })
     }
-    const submitHandler = (e) => {    //inja chon dataBase vaghaei ndarim , dorostPostnmishe
+    const submitHandler = (e) => {    
         e.preventDefault();
-        axios.post('http://localhost:3001/comments', {
+        http.post('/comments', {
             ...comment, postId: 10
         })
             .then((res) => {
                 return (
-                    axios.get('http://localhost:3001/comments')
-
+                    http.get('/comments')
                 )
-
             }).then((res) => {
                 props.setComments(res.data)
             })
