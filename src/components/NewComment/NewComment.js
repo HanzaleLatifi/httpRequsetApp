@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import './NewComment.css';
-import http from '../../services/http';
+import { postNewComment } from '../../services/postNewComment';
+import { getAllComments } from '../../services/getAllComments';
 
 function NewComment(props) {
     const [comment, setComment] = useState({ name: '', email: '', body: '' })
@@ -10,12 +11,10 @@ function NewComment(props) {
     }
     const submitHandler = (e) => {    
         e.preventDefault();
-        http.post('/comments', {
-            ...comment, postId: 10
-        })
+            postNewComment({...comment,postId:10})
             .then((res) => {
                 return (
-                    http.get('/comments')
+                    getAllComments()
                 )
             }).then((res) => {
                 props.setComments(res.data)

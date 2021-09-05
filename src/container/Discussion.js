@@ -3,9 +3,8 @@ import './Discussion.css'
 import FullComment from '../components/FullComment/FullComment'
 import NewComment from '../components/NewComment/NewComment'
 import Comment from '../components/Comment/Comment'
-import axios from 'axios' ; 
 import { toast } from 'react-toastify';
-import http from '../services/http'
+import { getAllComments } from '../services/getAllComments'
 
 
 function Discussion() {
@@ -14,7 +13,7 @@ function Discussion() {
     const [error, setError] = useState(false);
 
     useEffect(() => {
-        http.get('/comments')
+        getAllComments()
             .then((response) => {
 
                 setComments(response.data);

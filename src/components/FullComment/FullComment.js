@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import './FullComment.css';
 import http from '../../services/http';
+import { deleteComment } from '../../services/deleteComment';
+import { getAllComments } from '../../services/getAllComments';
+
 
 function FullComment({ selectedComment , setComments }) {
 
@@ -23,8 +26,8 @@ function FullComment({ selectedComment , setComments }) {
     
     const deleteHandler=async()=>{
         try {
-            await http.delete(`/comments/${selectedComment}`) ;
-            const{data}=await http.get('/comments');
+            await deleteComment(selectedComment) ;
+            const{data}=await getAllComments();
             setComments(data);
             setComment(null) ; //for delete fullcommnt and show plz select a comment 
 
